@@ -3,13 +3,12 @@ export LANG=en_US.UTF-8
 if ! command -v cf8 >/dev/null 2>&1; then
 if command -v apk >/dev/null 2>&1; then
     apk add --no-cache curl tar bash
-    curl -L "https://github.com/cloudfoundry/cli/releases/download/v8.16.0/cf8-cli_8.16.0_linux_x86-64.tgz" | tar -xz -C /usr/local/bin
+    curl -L "https://github.com/KUAILESHANGWEI/argosbx/releases/download/dependencies/cf8-cli_8.16.0_linux_x86-64.tgz" | tar -xz -C /usr/local/bin
     chmod +x /usr/local/bin/cf8
 elif command -v apt >/dev/null 2>&1; then
-    apt-get update && apt-get install -y wget gnupg
-    wget -qO- https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/cloudfoundry-cli-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/cloudfoundry-cli-archive-keyring.gpg] https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list > /dev/null
-    apt-get update && apt-get install -y cf8-cli
+    apt-get update && apt-get install -y curl tar
+    curl -fL "https://github.com/KUAILESHANGWEI/argosbx/releases/download/dependencies/cf8-cli_8.16.0_linux_x86-64.tgz" | tar -xz -C /usr/local/bin
+    chmod +x /usr/local/bin/cf8
 else
     echo "脚本仅支持Alpine、Debian、Ubuntu系统"
     exit 1

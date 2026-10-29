@@ -1,0 +1,19 @@
+name: Mirror release assets
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: mirror-release-assets
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mirror release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: scripts/sync-release-assets.sh
