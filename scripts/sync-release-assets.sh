@@ -21,12 +21,12 @@ if [ "$tag" != argosbx ]; then
 fi
 mkdir -p "$tmp/deps"
 for arch in amd64 arm64; do
-  curl -fL --retry 3 "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$arch" -o "$tmp/deps/cloudflared-linux-$arch"
+  curl -fL --retry 5 --retry-all-errors "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-$arch" -o "$tmp/deps/cloudflared-linux-$arch"
 done
-curl -fL --retry 3 'https://github.com/cloudfoundry/cli/releases/download/v8.16.0/cf8-cli_8.16.0_linux_x86-64.tgz' -o "$tmp/deps/cf8-cli_8.16.0_linux_x86-64.tgz"
-curl -fL --retry 3 'https://raw.githubusercontent.com/yonggekkk/acme-yg/main/acme.sh' -o "$tmp/deps/acme.sh"
+curl -fL --retry 5 --retry-all-errors 'https://github.com/cloudfoundry/cli/releases/download/v8.16.0/cf8-cli_8.16.0_linux_x86-64.tgz' -o "$tmp/deps/cf8-cli_8.16.0_linux_x86-64.tgz"
+curl -fL --retry 5 --retry-all-errors 'https://raw.githubusercontent.com/yonggekkk/acme-yg/main/acme.sh' -o "$tmp/deps/acme.sh"
 for kind in geosite geoip; do
-  curl -fL --retry 3 "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/$kind/cn.srs" -o "$tmp/deps/$kind-cn.srs"
+  curl -fL --retry 5 --retry-all-errors "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/$kind/cn.srs" -o "$tmp/deps/$kind-cn.srs"
 done
 if ! gh release view dependencies -R "$repo" >/dev/null 2>&1; then
   gh release create dependencies -R "$repo" --title 'Runtime dependencies' --notes 'Mirrored runtime dependencies.' --latest=false
